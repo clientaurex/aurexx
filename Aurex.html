@@ -1,0 +1,1937 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080706">
+<title>AUREX — Official</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold:#e5b85c;
+  --gold2:#ffdf98;
+  --red:#a52c20;
+  --bg:#080706;
+  --panel:#12100c;
+  --muted:#958b79;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {scroll-behavior:smooth}
+
+body {
+  background:var(--bg);
+  color:#fff;
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(ellipse at 15% 15%,#a52c2028,transparent 40%),
+    radial-gradient(ellipse at 85% 70%,#e5b85c18,transparent 45%),
+    #080706;
+}
+
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+button {font-family:inherit}
+
+::selection {
+  background:#e5b85c;
+  color:#080706;
+}
+
+/* BACKGROUND */
+
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.noise {
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* LOADING */
+
+.loader {
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#080706;
+  transition:opacity .8s,visibility .8s;
+}
+
+.loader.hide {
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-logo {
+  font-family:Orbitron;
+  font-size:65px;
+  font-weight:900;
+  letter-spacing:12px;
+  background:linear-gradient(90deg,#fff,#e5b85c,#a52c20,#fff);
+  background-size:300%;
+  color:transparent;
+  -webkit-background-clip:text;
+  animation:gradient 4s linear infinite;
+}
+
+.loader-line {
+  width:180px;
+  height:2px;
+  background:#292218;
+  margin-top:25px;
+  overflow:hidden;
+}
+
+.loader-line::after {
+  content:"";
+  display:block;
+  width:100%;
+  height:100%;
+  background:var(--gold);
+  animation:load 1.5s ease;
+}
+
+@keyframes load {
+  from {transform:translateX(-100%)}
+  to {transform:translateX(0)}
+}
+
+@keyframes gradient {
+  to {background-position:300%}
+}
+
+/* HEADER */
+
+header {
+  height:88px;
+  width:100%;
+  padding:0 8%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#080706c9;
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid #ffffff0c;
+  transition:.4s;
+}
+
+header.scrolled {
+  height:70px;
+  border-bottom-color:#e5b85c35;
+}
+
+.logo {
+  font-family:Orbitron;
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:6px;
+  background:linear-gradient(100deg,#fff,#e5b85c);
+  color:transparent;
+  -webkit-background-clip:text;
+}
+
+.nav {
+  display:flex;
+  align-items:center;
+  gap:30px;
+}
+
+.nav a {
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:#aaa08e;
+  transition:.3s;
+}
+
+.nav a:hover {color:var(--gold)}
+
+.nav-discord {
+  padding:13px 20px;
+  border:1px solid #e5b85c65;
+  border-radius:4px;
+  color:var(--gold)!important;
+}
+
+.nav-discord:hover {
+  background:#e5b85c18;
+  box-shadow:0 0 25px #e5b85c30;
+}
+
+/* HERO */
+
+.hero {
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:150px 20px 110px;
+  overflow:hidden;
+}
+
+.hero-glow {
+  position:absolute;
+  width:750px;
+  height:750px;
+  border-radius:50%;
+  background:radial-gradient(circle,#a52c2024,transparent 68%);
+  animation:glow 7s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  to {
+    transform:scale(1.3);
+    opacity:.45;
+  }
+}
+
+.orbit {
+  position:absolute;
+  width:500px;
+  height:500px;
+  border:1px solid #e5b85c25;
+  border-radius:50%;
+  animation:spin 35s linear infinite;
+}
+
+.orbit::before {
+  content:"";
+  position:absolute;
+  top:50px;
+  left:90px;
+  width:8px;
+  height:8px;
+  background:var(--gold);
+  border-radius:50%;
+  box-shadow:0 0 25px var(--gold);
+}
+
+.orbit-two {
+  width:700px;
+  height:700px;
+  border-style:dashed;
+  opacity:.35;
+  animation:spin 55s linear infinite reverse;
+}
+
+.orbit-three {
+  width:850px;
+  height:850px;
+  border-color:#a52c201c;
+  animation:spin 75s linear infinite;
+}
+
+@keyframes spin {
+  to {transform:rotate(360deg)}
+}
+
+.hero-content {
+  position:relative;
+  z-index:5;
+}
+
+.hero-label {
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 22px;
+  border:1px solid #e5b85c45;
+  background:#e5b85c0b;
+  border-radius:50px;
+  color:var(--gold);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:4px;
+  animation:appear 1s both;
+}
+
+.dot {
+  width:7px;
+  height:7px;
+  background:#a9dc82;
+  border-radius:50%;
+  box-shadow:0 0 12px #a9dc82;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% {opacity:.25}
+}
+
+.hero h1 {
+  font-family:Orbitron;
+  font-size:clamp(75px,15vw,165px);
+  font-weight:900;
+  letter-spacing:-7px;
+  margin:30px 0 15px;
+  background:linear-gradient(110deg,#fff 5%,#ffe5aa 30%,#e5b85c 58%,#a52c20 90%);
+  background-size:300%;
+  color:transparent;
+  -webkit-background-clip:text;
+  filter:drop-shadow(0 0 45px #e5b85c35);
+  animation:gradient 8s linear infinite,appear 1s .2s both;
+}
+
+.hero-subtitle {
+  color:#b4a78f;
+  font-size:12px;
+  letter-spacing:7px;
+  animation:appear 1s .4s both;
+}
+
+.hero-line {
+  width:110px;
+  height:1px;
+  margin:35px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+.hero-description {
+  color:#8d8372;
+  font-size:11px;
+  letter-spacing:4px;
+}
+
+.hero-buttons {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-top:40px;
+}
+
+.btn {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  min-width:190px;
+  padding:17px 25px;
+  border-radius:4px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:.35s;
+}
+
+.btn-gold {
+  color:#100d08;
+  background:linear-gradient(110deg,#b17c2d,#ffe4a0,#c08c39);
+  background-size:200%;
+  border:1px solid #ffe1a0;
+}
+
+.btn-outline {
+  color:var(--gold);
+  background:#e5b85c09;
+  border:1px solid #e5b85c70;
+}
+
+.btn:hover {
+  transform:translateY(-5px);
+  box-shadow:0 12px 35px #e5b85c35;
+}
+
+.btn-gold:hover {background-position:100%}
+
+.scroll-down {
+  position:absolute;
+  bottom:35px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#887d6b;
+  font-size:9px;
+  letter-spacing:5px;
+  animation:bob 2s infinite;
+}
+
+@keyframes bob {
+  50% {margin-bottom:9px}
+}
+
+@keyframes appear {
+  from {
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* GENERAL SECTIONS */
+
+.section {
+  padding:110px 8%;
+  position:relative;
+}
+
+.section-heading {
+  text-align:center;
+  margin-bottom:65px;
+}
+
+.section-tag {
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:6px;
+  margin-bottom:18px;
+}
+
+.section-heading h2 {
+  font-family:Orbitron;
+  font-size:clamp(28px,5vw,48px);
+  letter-spacing:2px;
+}
+
+.section-heading h2 span {color:var(--gold)}
+
+.section-heading p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:2;
+  max-width:550px;
+  margin:20px auto 0;
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(35px);
+  transition:.9s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:750px) {
+  header {
+    height:auto;
+    min-height:85px;
+    padding:15px 4%;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  header.scrolled {height:auto}
+
+  .nav {
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .nav a {font-size:9px}
+  .logo {font-size:22px}
+
+  .hero {padding-top:170px}
+  .orbit {width:340px;height:340px}
+  .orbit-two {width:460px;height:460px}
+  .orbit-three {width:560px;height:560px}
+
+  .hero h1 {letter-spacing:-3px}
+  .hero-subtitle {letter-spacing:3px}
+  .hero-description {letter-spacing:2px}
+  .section {padding:85px 6%}
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-logo">AUREX</div>
+  <div class="loader-line"></div>
+</div>
+
+<div class="noise"></div>
+<canvas id="particles"></canvas>
+
+<header id="header">
+
+  <a href="#home" class="logo">AUREX</a>
+
+  <nav class="nav">
+    <a href="#home">HOME</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#features">FEATURES</a>
+    <a href="#community">COMMUNITY</a>
+
+    <a href="https://discord.gg/bcYbvNfe8"
+       target="_blank"
+       rel="noopener"
+       class="nav-discord">
+       DISCORD ↗
+    </a>
+  </nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+  <div class="hero-glow"></div>
+  <div class="orbit"></div>
+  <div class="orbit orbit-two"></div>
+  <div class="orbit orbit-three"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-label">
+      <span class="dot"></span>
+      A NEW GENERATION OF PROJECTS
+    </div>
+
+    <h1>AUREX</h1>
+
+    <div class="hero-subtitle">
+      ONE BRAND. DIFFERENT WORLDS.
+    </div>
+
+    <div class="hero-line"></div>
+
+    <div class="hero-description">
+      DISCOVER THE AUREX ECOSYSTEM
+    </div>
+
+    <div class="hero-buttons">
+
+      <a href="#projects" class="btn btn-gold">
+        EXPLORE PROJECTS ↓
+      </a>
+
+      <a href="https://discord.gg/bcYbvNfe8"
+         target="_blank"
+         rel="noopener"
+         class="btn btn-outline">
+        JOIN DISCORD ↗
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="scroll-down">
+    SCROLL TO DISCOVER ↓
+  </div>
+
+</section>
+
+<style>
+/* PROJECT CARDS */
+
+.projects-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.project-card {
+  position:relative;
+  min-height:490px;
+  padding:35px;
+  overflow:hidden;
+  border:1px solid #ffffff16;
+  border-radius:9px;
+  background:linear-gradient(145deg,#19150f,#0b0907);
+  transition:.5s;
+}
+
+.project-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:0;
+  background:radial-gradient(circle at var(--x,50%) var(--y,50%),#e5b85c25,transparent 55%);
+  transition:.4s;
+  pointer-events:none;
+}
+
+.project-card:hover::before {opacity:1}
+
+.project-card:hover {
+  transform:translateY(-12px);
+  border-color:#e5b85c80;
+  box-shadow:0 25px 65px #000b,0 0 35px #e5b85c15;
+}
+
+.project-card.rustx {
+  border-color:#a52c2035;
+}
+
+.project-card.rustx:hover {
+  transform:translateY(-5px);
+  border-color:#a52c2070;
+}
+
+.project-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+.project-number {
+  color:#887858;
+  font-family:Orbitron;
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.project-status {
+  padding:9px 13px;
+  border-radius:4px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.available {
+  color:#b9df98;
+  background:#8bbf5215;
+  border:1px solid #8bbf5240;
+}
+
+.development {
+  color:#e0b35f;
+  background:#d9ae5915;
+  border:1px solid #d9ae5940;
+}
+
+.project-art {
+  height:205px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.project-orbit {
+  position:absolute;
+  width:155px;
+  height:155px;
+  border:1px solid #e5b85c55;
+  border-radius:50%;
+  animation:spin 25s linear infinite;
+  box-shadow:0 0 45px #e5b85c12,inset 0 0 35px #e5b85c10;
+}
+
+.project-orbit::before {
+  content:"";
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--gold);
+  top:15px;
+  right:20px;
+  box-shadow:0 0 18px var(--gold);
+}
+
+.project-orbit::after {
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#fff;
+  bottom:20px;
+  left:10px;
+  box-shadow:0 0 15px white;
+}
+
+.project-letter {
+  font-family:Orbitron;
+  font-size:85px;
+  font-weight:900;
+  position:relative;
+  z-index:2;
+  background:linear-gradient(140deg,#fff,#e5b85c,#a52c20);
+  color:transparent;
+  -webkit-background-clip:text;
+  filter:drop-shadow(0 0 30px #e5b85c55);
+}
+
+.rustx .project-orbit {
+  border-color:#a52c2070;
+}
+
+.rustx .project-letter {
+  background:linear-gradient(140deg,#fff,#d68b5e,#922b20);
+  color:transparent;
+  -webkit-background-clip:text;
+}
+
+.project-info {
+  position:relative;
+  z-index:2;
+}
+
+.project-info h3 {
+  font-family:Orbitron;
+  font-size:23px;
+  letter-spacing:2px;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+
+.rustx .project-info h3 {color:#d48b68}
+
+.project-info p {
+  color:#999083;
+  font-size:12px;
+  line-height:2;
+  min-height:48px;
+}
+
+.project-bottom {
+  position:relative;
+  z-index:2;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:28px;
+}
+
+.project-version {
+  color:#827862;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.project-button {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  border:0;
+  background:none;
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.project-button:hover {
+  color:white;
+  transform:translateX(6px);
+}
+
+.project-button.disabled {
+  color:#a88b65;
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.project-button.disabled:hover {
+  transform:none;
+}
+
+/* MODAL */
+
+.modal {
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:#000e;
+  backdrop-filter:blur(16px);
+  opacity:0;
+  visibility:hidden;
+  transition:.4s;
+}
+
+.modal.active {
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-box {
+  width:100%;
+  max-width:650px;
+  max-height:90vh;
+  overflow-y:auto;
+  position:relative;
+  padding:40px;
+  border:1px solid #e5b85c65;
+  border-radius:10px;
+  background:linear-gradient(145deg,#19150f,#090806);
+  box-shadow:0 30px 100px #000;
+  transform:translateY(35px) scale(.96);
+  transition:.4s;
+}
+
+.modal.active .modal-box {
+  transform:translateY(0) scale(1);
+}
+
+.modal-close {
+  position:absolute;
+  top:17px;
+  right:17px;
+  width:38px;
+  height:38px;
+  background:#ffffff08;
+  border:1px solid #ffffff25;
+  color:var(--gold);
+  font-size:22px;
+  cursor:pointer;
+  border-radius:4px;
+  transition:.3s;
+}
+
+.modal-close:hover {
+  transform:rotate(90deg);
+  background:#e5b85c15;
+}
+
+.modal-tag {
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:5px;
+  margin-bottom:17px;
+}
+
+.modal-box h2 {
+  font-family:Orbitron;
+  font-size:clamp(25px,5vw,40px);
+  color:var(--gold);
+  margin-bottom:15px;
+}
+
+.modal-description {
+  color:#a49a89;
+  font-size:12px;
+  line-height:2;
+}
+
+.modal-version {
+  display:inline-block;
+  padding:11px 16px;
+  margin-top:22px;
+  color:var(--gold);
+  background:#e5b85c10;
+  border:1px solid #e5b85c45;
+  border-radius:4px;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.modal-divider {
+  height:1px;
+  background:#ffffff18;
+  margin:30px 0;
+}
+
+.modal-box h3 {
+  font-family:Orbitron;
+  font-size:14px;
+  letter-spacing:2px;
+  color:var(--gold);
+  margin-bottom:25px;
+}
+
+.install-step {
+  display:flex;
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.step-number {
+  width:34px;
+  height:34px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #e5b85c60;
+  border-radius:5px;
+  color:var(--gold);
+  font-family:Orbitron;
+  font-size:11px;
+}
+
+.install-step h4 {
+  color:#f0dfb9;
+  font-size:12px;
+  margin-bottom:7px;
+}
+
+.install-step p {
+  color:#999083;
+  font-size:11px;
+  line-height:1.9;
+}
+
+.install-step code {
+  color:var(--gold);
+  background:#e5b85c15;
+  padding:3px 5px;
+  border-radius:3px;
+}
+
+.modal-warning {
+  padding:15px;
+  border-left:2px solid var(--gold);
+  background:#e5b85c0b;
+  color:#aa9b80;
+  font-size:10px;
+  line-height:1.9;
+  margin-top:20px;
+}
+
+.modal-buttons {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:25px;
+}
+
+.modal-buttons .btn {
+  width:100%;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:750px) {
+  .projects-grid {
+    grid-template-columns:1fr;
+  }
+
+  .project-card {
+    min-height:460px;
+    padding:27px;
+  }
+
+  .modal-box {
+    padding:30px 20px;
+  }
+}
+</style>
+
+<!-- PROJECTS SECTION -->
+
+<section class="section" id="projects">
+
+  <div class="section-heading reveal">
+    <div class="section-tag">01 / OUR ECOSYSTEM</div>
+    <h2>OUR <span>PROJECTS</span></h2>
+    <p>
+      Explore the AUREX ecosystem. Choose your project
+      and discover a different world.
+    </p>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- MINECRAFT -->
+
+    <article class="project-card reveal">
+
+      <div class="project-top">
+        <span class="project-number">PROJECT 001</span>
+        <span class="project-status available">
+          ● AVAILABLE
+        </span>
+      </div>
+
+      <div class="project-art">
+        <div class="project-orbit"></div>
+        <div class="project-letter">M</div>
+      </div>
+
+      <div class="project-info">
+        <h3>MINECRAFT</h3>
+        <p>
+          Discover AurexClient for Minecraft 1.20.1.
+          Your next experience starts here.
+        </p>
+      </div>
+
+      <div class="project-bottom">
+        <span class="project-version">VERSION 1.20.1</span>
+
+        <button class="project-button"
+                onclick="openMinecraft()">
+          OPEN CLIENT ↗
+        </button>
+      </div>
+
+    </article>
+
+    <!-- RUSTX -->
+
+    <article class="project-card rustx reveal">
+
+      <div class="project-top">
+        <span class="project-number">PROJECT 002</span>
+        <span class="project-status development">
+          ◉ IN DEVELOPMENT
+        </span>
+      </div>
+
+      <div class="project-art">
+        <div class="project-orbit"></div>
+        <div class="project-letter">R</div>
+      </div>
+
+      <div class="project-info">
+        <h3>RUSTX</h3>
+        <p>
+          A separate project in the AUREX ecosystem.
+          Currently under development.
+        </p>
+      </div>
+
+      <div class="project-bottom">
+        <span class="project-version">COMING SOON</span>
+
+        <button class="project-button disabled"
+                disabled>
+          NOT AVAILABLE
+        </button>
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+<!-- MINECRAFT DOWNLOAD MODAL -->
+
+<div class="modal" id="minecraftModal"
+     onclick="outsideClose(event)">
+
+  <div class="modal-box">
+
+    <button class="modal-close"
+            onclick="closeMinecraft()">
+      ×
+    </button>
+
+    <div class="modal-tag">AUREX / PROJECT 001</div>
+
+    <h2>AUREX MINECRAFT</h2>
+
+    <p class="modal-description">
+      Welcome to AurexClient. Download your file
+      and follow the installation instructions below.
+    </p>
+
+    <div class="modal-version">
+      MINECRAFT 1.20.1
+    </div>
+
+    <div class="modal-divider"></div>
+
+    <h3>INSTALLATION GUIDE</h3>
+
+    <div class="install-step">
+      <div class="step-number">01</div>
+      <div>
+        <h4>DOWNLOAD AUREX</h4>
+        <p>
+          Press the gold download button below
+          to download your client file.
+        </p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="step-number">02</div>
+      <div>
+        <h4>OPEN MINECRAFT FOLDER</h4>
+        <p>
+          Press <code>Win + R</code>, type
+          <code>%appdata%\.minecraft</code>
+          and press Enter.
+        </p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="step-number">03</div>
+      <div>
+        <h4>OPEN MODS FOLDER</h4>
+        <p>
+          Find the <code>mods</code> folder.
+          If it doesn't exist, create one.
+        </p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="step-number">04</div>
+      <div>
+        <h4>MOVE THE FILE</h4>
+        <p>
+          Place the downloaded compatible
+          <code>.jar</code> file into the
+          <code>mods</code> folder.
+        </p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="step-number">05</div>
+      <div>
+        <h4>START MINECRAFT</h4>
+        <p>
+          Launch Minecraft 1.20.1 using the
+          compatible Forge or Fabric profile.
+        </p>
+      </div>
+    </div>
+
+    <div class="modal-warning">
+      IMPORTANT: Make sure your downloaded file is
+      a compatible Minecraft mod and that you use
+      its required mod loader.
+    </div>
+
+    <div class="modal-buttons">
+
+      <a class="btn btn-gold"
+         href="https://drive.google.com/uc?export=download&id=1vQMtCdGMYL0cWYWOj5iCrPHNl7_Gfqid"
+         target="_blank"
+         rel="noopener">
+        DOWNLOAD AUREX ↓
+      </a>
+
+      <a class="btn btn-outline"
+         href="https://discord.gg/bcYbvNfe8"
+         target="_blank"
+         rel="noopener">
+        JOIN AUREX DISCORD ↗
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+/* FEATURES */
+
+.features-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+  max-width:1150px;
+  margin:auto;
+}
+
+.feature-card {
+  position:relative;
+  padding:30px 25px;
+  min-height:215px;
+  overflow:hidden;
+  border:1px solid #ffffff13;
+  border-radius:7px;
+  background:linear-gradient(145deg,#17130e,#0c0a08);
+  transition:.4s;
+}
+
+.feature-card:hover {
+  transform:translateY(-8px);
+  border-color:#e5b85c75;
+  box-shadow:0 15px 45px #0008,0 0 25px #e5b85c12;
+}
+
+.feature-icon {
+  width:48px;
+  height:48px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border:1px solid #e5b85c50;
+  border-radius:6px;
+  color:var(--gold);
+  font-size:22px;
+  background:#e5b85c0c;
+  margin-bottom:25px;
+  transition:.4s;
+}
+
+.feature-card:hover .feature-icon {
+  background:var(--gold);
+  color:#080706;
+  transform:rotate(8deg) scale(1.08);
+  box-shadow:0 0 25px #e5b85c50;
+}
+
+.feature-card h3 {
+  font-family:Orbitron;
+  font-size:13px;
+  letter-spacing:1px;
+  color:#f0dfb9;
+  margin-bottom:12px;
+}
+
+.feature-card p {
+  color:#928879;
+  font-size:11px;
+  line-height:2;
+}
+
+.feature-number {
+  position:absolute;
+  right:20px;
+  top:18px;
+  color:#e5b85c20;
+  font-family:Orbitron;
+  font-size:25px;
+  font-weight:900;
+}
+
+/* STATS */
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:1000px;
+  margin:75px auto 0;
+  padding:35px 20px;
+  border-top:1px solid #e5b85c25;
+  border-bottom:1px solid #e5b85c25;
+}
+
+.stat {
+  text-align:center;
+}
+
+.stat strong {
+  display:block;
+  font-family:Orbitron;
+  font-size:30px;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+.stat span {
+  color:#938978;
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+/* DOWNLOAD SECTION */
+
+.download-section {
+  max-width:1100px;
+  margin:0 auto;
+  padding:65px 35px;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  border:1px solid #e5b85c45;
+  border-radius:9px;
+  background:
+    radial-gradient(ellipse at 50% 0%,#e5b85c20,transparent 65%),
+    linear-gradient(145deg,#17120c,#0b0907);
+}
+
+.download-section::before {
+  content:"AUREX";
+  position:absolute;
+  font-family:Orbitron;
+  font-size:clamp(80px,17vw,190px);
+  font-weight:900;
+  letter-spacing:10px;
+  color:#e5b85c06;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.download-content {
+  position:relative;
+  z-index:2;
+}
+
+.download-content h2 {
+  font-family:Orbitron;
+  font-size:clamp(26px,5vw,43px);
+  margin-bottom:18px;
+}
+
+.download-content h2 span {color:var(--gold)}
+
+.download-content p {
+  max-width:550px;
+  margin:0 auto;
+  color:#a69a86;
+  font-size:12px;
+  line-height:2;
+}
+
+.download-actions {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-top:30px;
+}
+
+/* COMMUNITY */
+
+.community-card {
+  max-width:1000px;
+  margin:0 auto;
+  padding:65px 25px;
+  text-align:center;
+  border:1px solid #a52c2050;
+  border-radius:8px;
+  background:
+    radial-gradient(ellipse at center,#a52c2018,transparent 70%),
+    #100b09;
+}
+
+.community-card h2 {
+  font-family:Orbitron;
+  font-size:clamp(26px,5vw,43px);
+  margin-bottom:18px;
+}
+
+.community-card h2 span {color:var(--gold)}
+
+.community-card p {
+  max-width:550px;
+  margin:0 auto;
+  color:#a19683;
+  font-size:12px;
+  line-height:2;
+}
+
+.community-actions {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-top:30px;
+}
+
+/* FOOTER */
+
+footer {
+  padding:40px 8%;
+  border-top:1px solid #ffffff12;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.footer-brand {
+  font-family:Orbitron;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:5px;
+  color:var(--gold);
+}
+
+.footer-copy {
+  color:#777064;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.footer-links {
+  display:flex;
+  gap:20px;
+}
+
+.footer-links a {
+  color:#a99a80;
+  font-size:10px;
+  letter-spacing:1px;
+  transition:.3s;
+}
+
+.footer-links a:hover {color:var(--gold)}
+
+/* BACK TO TOP */
+
+#backTop {
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  z-index:2000;
+  width:45px;
+  height:45px;
+  border:1px solid #e5b85c65;
+  border-radius:5px;
+  background:#15100a;
+  color:var(--gold);
+  font-size:20px;
+  cursor:pointer;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:.3s;
+}
+
+#backTop.show {
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+#backTop:hover {
+  background:var(--gold);
+  color:#080706;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+  .features-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:550px) {
+  .features-grid {
+    grid-template-columns:1fr;
+  }
+
+  .stats {
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .download-section {
+    padding:50px 20px;
+  }
+
+  footer {
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .footer-links {
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+}
+</style>
+
+<!-- FEATURES -->
+
+<section class="section" id="features">
+
+  <div class="section-heading reveal">
+    <div class="section-tag">02 / WHY AUREX</div>
+    <h2>OUR <span>FEATURES</span></h2>
+    <p>
+      AUREX is built around its own identity,
+      visual style and growing ecosystem.
+    </p>
+  </div>
+
+  <div class="features-grid">
+
+    <div class="feature-card reveal">
+      <span class="feature-number">01</span>
+      <div class="feature-icon">✦</div>
+      <h3>UNIQUE DESIGN</h3>
+      <p>
+        A distinctive visual identity with a
+        carefully designed interface and style.
+      </p>
+    </div>
+
+    <div class="feature-card reveal">
+      <span class="feature-number">02</span>
+      <div class="feature-icon">⚡</div>
+      <h3>EASY ACCESS</h3>
+      <p>
+        Find your project and access its
+        download information in just a few clicks.
+      </p>
+    </div>
+
+    <div class="feature-card reveal">
+      <span class="feature-number">03</span>
+      <div class="feature-icon">◈</div>
+      <h3>OUR ECOSYSTEM</h3>
+      <p>
+        Multiple projects connected by one
+        brand and one shared identity.
+      </p>
+    </div>
+
+    <div class="feature-card reveal">
+      <span class="feature-number">04</span>
+      <div class="feature-icon">⬡</div>
+      <h3>COMMUNITY</h3>
+      <p>
+        Stay connected through our Discord
+        and follow project announcements.
+      </p>
+    </div>
+
+    <div class="feature-card reveal">
+      <span class="feature-number">05</span>
+      <div class="feature-icon">✧</div>
+      <h3>CONTINUOUS UPDATES</h3>
+      <p>
+        Follow the development of AUREX
+        and discover upcoming releases.
+      </p>
+    </div>
+
+    <div class="feature-card reveal">
+      <span class="feature-number">06</span>
+      <div class="feature-icon">⬢</div>
+      <h3>NEW EXPERIENCES</h3>
+      <p>
+        Explore different games and projects
+        through the AUREX platform.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+
+  <div class="stats reveal">
+
+    <div class="stat">
+      <strong>02</strong>
+      <span>PROJECTS</span>
+    </div>
+
+    <div class="stat">
+      <strong>01</strong>
+      <span>ECOSYSTEM</span>
+    </div>
+
+    <div class="stat">
+      <strong>∞</strong>
+      <span>POSSIBILITIES</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- DOWNLOAD -->
+
+<section class="section" id="download">
+
+  <div class="download-section reveal">
+
+    <div class="download-content">
+
+      <div class="section-tag">03 / GET STARTED</div>
+
+      <h2>GET <span>AUREX</span></h2>
+
+      <p>
+        Ready to explore AurexClient?
+        Download the Minecraft 1.20.1 client
+        and follow the installation instructions.
+      </p>
+
+      <div class="download-actions">
+
+        <button class="btn btn-gold"
+                onclick="openMinecraft()">
+          DOWNLOAD MINECRAFT ↓
+        </button>
+
+        <a href="https://discord.gg/bcYbvNfe8"
+           target="_blank"
+           rel="noopener"
+           class="btn btn-outline">
+          JOIN DISCORD ↗
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- COMMUNITY -->
+
+<section class="section" id="community">
+
+  <div class="community-card reveal">
+
+    <div class="section-tag">04 / JOIN US</div>
+
+    <h2>WELCOME TO <span>AUREX</span></h2>
+
+    <p>
+      Become part of our community.
+      Follow the latest announcements,
+      updates and future projects.
+    </p>
+
+    <div class="community-actions">
+
+      <a href="https://discord.gg/bcYbvNfe8"
+         target="_blank"
+         rel="noopener"
+         class="btn btn-gold">
+        ENTER DISCORD ↗
+      </a>
+
+      <a href="#projects"
+         class="btn btn-outline">
+        EXPLORE PROJECTS ↑
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <a href="#home" class="footer-brand">AUREX</a>
+
+  <div class="footer-copy">
+    © 2026 AUREX. ALL RIGHTS RESERVED.
+  </div>
+
+  <div class="footer-links">
+    <a href="#home">HOME</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#download">DOWNLOAD</a>
+    <a href="https://discord.gg/bcYbvNfe8"
+       target="_blank"
+       rel="noopener">DISCORD ↗</a>
+  </div>
+
+</footer>
+
+<button id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+/* =====================================
+   AUREX — MAIN JAVASCRIPT
+===================================== */
+
+/* LOADING SCREEN */
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const loader = document.getElementById("loader");
+
+    if (loader) {
+      loader.classList.add("hide");
+    }
+  }, 1300);
+});
+
+/* PARTICLES BACKGROUND */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let mouse = { x: -1000, y: -1000 };
+
+function resizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+
+for (let i = 0; i < 110; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    radius: Math.random() * 1.6 + 0.4,
+    speed: Math.random() * 0.35 + 0.1,
+    alpha: Math.random() * 0.6 + 0.2
+  });
+}
+
+window.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+function animateParticles() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+  particles.forEach((p, index) => {
+    p.y -= p.speed;
+
+    if (p.y < -5) {
+      p.y = window.innerHeight + 5;
+      p.x = Math.random() * window.innerWidth;
+    }
+
+    const dx = p.x - mouse.x;
+    const dy = p.y - mouse.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 110) {
+      p.x += dx * 0.002;
+      p.y += dy * 0.002;
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+
+    ctx.fillStyle = `rgba(229,184,92,${p.alpha})`;
+
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = "#e5b85c";
+
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+
+    // Connecting nearby particles
+    for (let j = index + 1; j < particles.length; j++) {
+      const other = particles[j];
+
+      const ox = p.x - other.x;
+      const oy = p.y - other.y;
+      const dist = Math.sqrt(ox * ox + oy * oy);
+
+      if (dist < 85) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(other.x, other.y);
+
+        ctx.strokeStyle =
+          `rgba(229,184,92,${0.08 * (1 - dist / 85)})`;
+
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+/* SCROLL ANIMATIONS */
+
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.12
+  }
+);
+
+document.querySelectorAll(".reveal").forEach(element => {
+  revealObserver.observe(element);
+});
+
+/* HEADER SCROLL EFFECT */
+
+const header = document.getElementById("header");
+const backTop = document.getElementById("backTop");
+
+window.addEventListener("scroll", () => {
+  const scrolled = window.scrollY > 40;
+
+  header.classList.toggle("scrolled", scrolled);
+  backTop.classList.toggle("show", window.scrollY > 400);
+});
+
+/* BACK TO TOP */
+
+backTop.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
+/* CARD MOUSE LIGHT */
+
+document.querySelectorAll(".project-card, .feature-card").forEach(card => {
+
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+
+    card.style.setProperty(
+      "--x",
+      (e.clientX - rect.left) + "px"
+    );
+
+    card.style.setProperty(
+      "--y",
+      (e.clientY - rect.top) + "px"
+    );
+  });
+
+});
+
+/* MINECRAFT MODAL */
+
+const minecraftModal = document.getElementById("minecraftModal");
+
+function openMinecraft() {
+  minecraftModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeMinecraft() {
+  minecraftModal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+function outsideClose(event) {
+  if (event.target === minecraftModal) {
+    closeMinecraft();
+  }
+}
+
+/* KEYBOARD ESCAPE */
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeMinecraft();
+  }
+});
+
+/* SMOOTH NAVIGATION */
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+  link.addEventListener("click", (event) => {
+
+    const targetId = link.getAttribute("href");
+
+    if (!targetId || targetId === "#") return;
+
+    const target = document.querySelector(targetId);
+
+    if (target) {
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+  });
+
+});
+
+/* RUSTX IS CURRENTLY DISABLED */
+
+const rustButton = document.querySelector(
+  ".rustx .project-button"
+);
+
+if (rustButton) {
+  rustButton.disabled = true;
+}
+
+/* CONSOLE */
+
+console.log(
+  "%c AUREX ",
+  "background:#e5b85c;color:#080706;font-size:24px;font-weight:bold;padding:10px;"
+);
+
+console.log(
+  "%cWelcome to the AUREX ecosystem.",
+  "color:#e5b85c;font-size:13px;"
+);
+
+</script>
+
+</body>
+</html>
